@@ -25,8 +25,36 @@ not be misrepresented as being the original software.
 #ifndef MATRIX_IMPL_H__
 #define MATRIX_IMPL_H__
 
+namespace VFP {
+
 // Multiplies two 4x4 matrices saved in row-major format.
-// Inputs are pointer to memory location of the data.
-void matrix_mult_4(const float* src_ptr_1, const float* src_ptr_2, float* dst_ptr);
+void Matrix4Mul(const float* src_mat_1, const float* src_mat_2, float* dst_ptr);
+
+// Multiplies a 4x4 matrix with a 4-dim. vector.
+void Matrix4Vector4Mul(const float* src_mat, const float* src_vec, float* dst_vec);
+
+// Multiplies a 4x4 matrix with a 3-dim. vector. Last coordinate is assumed to be 1.
+void Matrix4Vector3Mul(const float* src_mat, const float* src_vec, float* dst_vec);
+  
+// Multiplies a 4x4 matrix with a 3-dim. vector. Last coordinate is assumed to be w.
+void Matrix4Vector3Mul(const float* src_mat, const float* src_vec, float w, float* dst_vec);
+  
+// Multiplies a 4x4 matrix with a 3-dim. vector. Last coordinate is assumed to be 1. 
+void Matrix4Vector3ArrayMul(int num,                          // Number of Vertices.
+                            const float* src_mat,             // Source matrix.
+                            int src_stride,                   // Source vector stride.
+                            const float* src_vec_array,       // Source vector array.
+                            int dst_stride                    // Dest. vector stride.
+                            float* dest_vec_array);           // Dest. vector array.
+  
+  
+// Multiplies a 4x4 matrix with a 3-dim. vector. Last coordinate is assumed to be w. 
+void Matrix4Vector3ArrayMul(int num,                          // Number of Vertices.
+                            const float* src_mat,             // Source matrix.
+                            float w,                          // Last coordinate of vectors.
+                            int src_stride,                   // Source vector stride.
+                            const float* src_vec_array,       // Source vector array.
+                            int dst_stride                    // Dest. vector stride.
+                            float* dest_vec_array);           // Dest. vector array.}
 
 #endif // MATRIX_IMPL_H__
