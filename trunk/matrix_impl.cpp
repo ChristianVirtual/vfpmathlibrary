@@ -22,10 +22,12 @@ not be misrepresented as being the original software.
 3. This notice may not be removed or altered from any source distribution.
 */
 
+#ifdef __APPLE__
+#include <TargetConditionals.h>
+#if (TARGET_IPHONE_SIMULATOR == 0) && (TARGET_OS_IPHONE == 1)
+
 #include "matrix_impl.h"
 #include "common_macros.h"
-
-namespace VFP {
 
 void Matrix4Mul(const float* src_mat_1, const float* src_mat_2, float* dst_mat) {
   asm volatile (VFP_SWITCH_TO_ARM
@@ -136,7 +138,7 @@ void Matrix4Vector4Mul(const float* src_mat, const float* src_vec, float* dst_ve
                 VFP_VECTOR_LENGTH_ZERO
                 VFP_SWITCH_TO_THUMB
                 : "=r" (src_mat)
-                : "r" (src_vec), "r" (dst_ptr), "0" (src_mat)
+                : "r" (src_vec), "r" (dst_vec), "0" (src_mat)
                 : "r0"
                 );  
 }
@@ -186,7 +188,7 @@ void Matrix4Vector3Mul(const float* src_mat, const float* src_vec, float* dst_ve
                 VFP_VECTOR_LENGTH_ZERO
                 VFP_SWITCH_TO_THUMB
                 : "=r" (src_mat)
-                : "r" (src_vec), "r" (dst_ptr), "0" (src_mat)
+                : "r" (src_vec), "r" (dst_vec), "0" (src_mat)
                 : "r0"
                 );  
 }
@@ -239,9 +241,10 @@ void Matrix4Vector3Mul(const float* src_mat, const float* src_vec, float w, floa
                   VFP_VECTOR_LENGTH_ZERO
                   VFP_SWITCH_TO_THUMB
                   : "=r" (src_mat)
-                  : "r" (src_vec), "r" (dst_ptr), "r" (w), "0" (src_mat)
+                  : "r" (src_vec), "r" (dst_vec), "r" (w), "0" (src_mat)
                   : "r0"
                   );  
 }
   
-}
+#endif
+#endif
