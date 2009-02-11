@@ -22,12 +22,20 @@
  3. This notice may not be removed or altered from any source distribution.
  */
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-int main(int argc, char *argv[]) {
-  
-  NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-  int retVal = UIApplicationMain(argc, argv, nil, @"UnittestsAppDelegate");
-  [pool release];
-  return retVal;
+// Basic Class to group related UnitTests for execution on iPhone.
+
+@interface TestSuite : NSObject {
+  UITextView* output_;
+  NSMutableArray* test_methods_;
 }
+
+// Public interface.
+- (id)initWithTextView:(UITextView*) output;
+- (void)runTests;
+
+// Interface for subclasses.
+- (void)registerTest:(SEL)method showDescription:(NSString*)desc;
+
+@end

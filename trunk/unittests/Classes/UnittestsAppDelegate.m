@@ -22,12 +22,33 @@
  3. This notice may not be removed or altered from any source distribution.
  */
 
-#import <UIKit/UIKit.h>
+#import "UnittestsAppDelegate.h"
+#import "MatrixTest.h"
 
-int main(int argc, char *argv[]) {
+@implementation UnittestsAppDelegate
+
+- (void)applicationDidFinishLaunching:(UIApplication *)application {    
+  window_ = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
   
-  NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-  int retVal = UIApplicationMain(argc, argv, nil, @"UnittestsAppDelegate");
-  [pool release];
-  return retVal;
+  output_ = [[UITextView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+  output_.font = [UIFont fontWithName:@"Courier" size:12];
+  
+  [window_ addSubview:output_];
+  [window_ makeKeyAndVisible];
+  
+  [self runAllTests];
 }
+
+- (void)runAllTests {
+  MatrixTest* mt = [[[MatrixTest alloc] initWithTextView:output_] autorelease];
+  [mt runTests];
+}
+
+
+- (void)dealloc {
+  [window_ release];
+  [output_ release];
+  [super dealloc];
+}
+
+@end

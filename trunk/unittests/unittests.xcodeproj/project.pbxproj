@@ -7,23 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D3623260D0F684500981E51 /* unittestsAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* unittestsAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
+		B212B2C40F420F5A00FE2A61 /* TestSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = B212B2C30F420F5A00FE2A61 /* TestSuite.m */; };
+		B212B2D60F421D4200FE2A61 /* MatrixTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = B212B2D50F421D4200FE2A61 /* MatrixTest.mm */; };
+		B212B3DB0F42301A00FE2A61 /* matrix_impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B212B3DA0F42301A00FE2A61 /* matrix_impl.cpp */; };
+		B21584DF0F43364D003CCBEF /* UnittestsAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B21584DE0F43364D003CCBEF /* UnittestsAppDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1D3623240D0F684500981E51 /* unittestsAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unittestsAppDelegate.h; sourceTree = "<group>"; };
-		1D3623250D0F684500981E51 /* unittestsAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = unittestsAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* unittests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = unittests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		32CA4F630368D1EE00C91783 /* unittests_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unittests_Prefix.pch; sourceTree = "<group>"; };
+		32CA4F630368D1EE00C91783 /* Unittests_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Unittests_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B212B2C20F420F5A00FE2A61 /* TestSuite.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = TestSuite.h; sourceTree = "<group>"; };
+		B212B2C30F420F5A00FE2A61 /* TestSuite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSuite.m; sourceTree = "<group>"; };
+		B212B2D40F421D4200FE2A61 /* MatrixTest.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = MatrixTest.h; sourceTree = "<group>"; };
+		B212B2D50F421D4200FE2A61 /* MatrixTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MatrixTest.mm; sourceTree = "<group>"; };
+		B212B3D90F42301A00FE2A61 /* common_macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = common_macros.h; path = ../common_macros.h; sourceTree = SOURCE_ROOT; };
+		B212B3DA0F42301A00FE2A61 /* matrix_impl.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = matrix_impl.cpp; path = ../matrix_impl.cpp; sourceTree = SOURCE_ROOT; };
+		B21584050F423077003CCBEF /* matrix_impl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = matrix_impl.h; path = ../matrix_impl.h; sourceTree = SOURCE_ROOT; };
+		B21584DD0F43364D003CCBEF /* UnittestsAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnittestsAppDelegate.h; sourceTree = "<group>"; };
+		B21584DE0F43364D003CCBEF /* UnittestsAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnittestsAppDelegate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,8 +53,12 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				1D3623240D0F684500981E51 /* unittestsAppDelegate.h */,
-				1D3623250D0F684500981E51 /* unittestsAppDelegate.m */,
+				B212B2C20F420F5A00FE2A61 /* TestSuite.h */,
+				B212B2C30F420F5A00FE2A61 /* TestSuite.m */,
+				B212B2D40F421D4200FE2A61 /* MatrixTest.h */,
+				B212B2D50F421D4200FE2A61 /* MatrixTest.mm */,
+				B21584DD0F43364D003CCBEF /* UnittestsAppDelegate.h */,
+				B21584DE0F43364D003CCBEF /* UnittestsAppDelegate.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -60,6 +74,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				B212B3D80F422FFE00FE2A61 /* vfpmathlibrary */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -72,7 +87,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				32CA4F630368D1EE00C91783 /* unittests_Prefix.pch */,
+				32CA4F630368D1EE00C91783 /* Unittests_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
 			name = "Other Sources";
@@ -94,6 +109,16 @@
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B212B3D80F422FFE00FE2A61 /* vfpmathlibrary */ = {
+			isa = PBXGroup;
+			children = (
+				B21584050F423077003CCBEF /* matrix_impl.h */,
+				B212B3D90F42301A00FE2A61 /* common_macros.h */,
+				B212B3DA0F42301A00FE2A61 /* matrix_impl.cpp */,
+			);
+			name = vfpmathlibrary;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,7 +174,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
-				1D3623260D0F684500981E51 /* unittestsAppDelegate.m in Sources */,
+				B212B2C40F420F5A00FE2A61 /* TestSuite.m in Sources */,
+				B212B2D60F421D4200FE2A61 /* MatrixTest.mm in Sources */,
+				B212B3DB0F42301A00FE2A61 /* matrix_impl.cpp in Sources */,
+				B21584DF0F43364D003CCBEF /* UnittestsAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

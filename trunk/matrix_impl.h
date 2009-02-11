@@ -42,7 +42,7 @@ void Matrix4Vector3ArrayMul(int num,                          // Number of Verti
                             const float* src_mat,             // Source matrix.
                             int src_stride,                   // Source vector stride.
                             const float* src_vec_array,       // Source vector array.
-                            int dst_stride,                    // Dest. vector stride.
+                            int dst_stride,                   // Dest. vector stride.
                             float* dest_vec_array);           // Dest. vector array.
   
   
@@ -52,7 +52,7 @@ void Matrix4Vector3ArrayMul(int num,                          // Number of Verti
                             float w,                          // Last coordinate of vectors.
                             int src_stride,                   // Source vector stride.
                             const float* src_vec_array,       // Source vector array.
-                            int dst_stride,                    // Dest. vector stride.
+                            int dst_stride,                   // Dest. vector stride.
                             float* dest_vec_array);           // Dest. vector array.
 
 #endif // MATRIX_IMPL_H__
