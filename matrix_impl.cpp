@@ -119,7 +119,7 @@ void Matrix4Vector4Mul(const float* src_mat, const float* src_vec, float* dst_ve
                 "fcpys s15, s25            \n\t"
                 
                 // Load vector to scalar bank.
-                "fldmias  %1, {s0-s3}    \n\t"
+                "fldmias  %1, {s0-s3}      \n\t"
                 
                 "fcpys s19, s26            \n\t"
                 "fcpys s23, s27            \n\t"

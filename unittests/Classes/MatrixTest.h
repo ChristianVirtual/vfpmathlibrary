@@ -22,12 +22,20 @@
  3. This notice may not be removed or altered from any source distribution.
  */
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "TestSuite.h"
 
-int main(int argc, char *argv[]) {
-  
-  NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-  int retVal = UIApplicationMain(argc, argv, nil, @"UnittestsAppDelegate");
-  [pool release];
-  return retVal;
+@interface MatrixTest : TestSuite {
+  float matrix_a_[16];
+  float matrix_b_[16];
+  float result_[16];
+  float vec4_[4];
+  float vec3_[3];
 }
+
+- (id)initWithTextView:(UITextView*) output;
+- (BOOL)testMatrix4Mul;
+- (BOOL)testMatrix4Vector4Mul;
+- (BOOL)testMatrix4Vector3Mul;
+
+@end

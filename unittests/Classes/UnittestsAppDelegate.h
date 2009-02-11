@@ -22,12 +22,16 @@
  3. This notice may not be removed or altered from any source distribution.
  */
 
+#import <Foundation/Foundation.h>
+
+
 #import <UIKit/UIKit.h>
 
-int main(int argc, char *argv[]) {
-  
-  NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-  int retVal = UIApplicationMain(argc, argv, nil, @"UnittestsAppDelegate");
-  [pool release];
-  return retVal;
+@interface UnittestsAppDelegate : NSObject <UIApplicationDelegate> {
+  UIWindow* window_;
+  UITextView* output_;
 }
+
+- (void)runAllTests;
+
+@end
