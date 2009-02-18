@@ -38,17 +38,23 @@
     [self registerTest:@selector(testMatrix4Vector3Mul) 
        showDescription:@"Matrix4Vector3Mul Unit"];
     
+    [self registerTest:@selector(testMatrix4Vector3ArrayMul) 
+       showDescription:@"Matrix4Vector3ArrayMul"];
+    
+    [self registerTest:@selector(testMatrix4Vector3ArrayMulUnit) 
+       showDescription:@"Matrix4Vector3ArrayMul Unit"];
+    
     // Setup test matrices.
-    float matrix_a_data[16] = { -45,    38,   -13,   -63,
-                                -91,   -37,   -24,    -3,
-                                -81,    90,    53,   -11,
-                                 64,   -94,    59,    29 };
+    float matrix_a_data[16] = {  -45,   -91,   -81,    64,
+                                  38,   -37,    90,   -94,
+                                 -13,   -24,    53,    59,
+                                 -63,    -3,   -11,    29 };
     memcpy(matrix_a_, matrix_a_data, 16 * sizeof(float));
     
-    float matrix_b_data[16] = { -30,    83,   -24,    6,
-                                 66,   -43,    13,    55,
-                                 17,    51,   -85,    86,
-                                  9,    50,   -90,   -75};
+    float matrix_b_data[16] = {  -30,    66,    17,     9,
+                                  83,   -43,    51,    50,
+                                 -24,    13,   -85,   -90,
+                                   6,    55,    86,   -75};
     
     memcpy(matrix_b_, matrix_b_data, 16 * sizeof(float));
     
@@ -70,10 +76,10 @@
 - (BOOL) testMatrix4Mul {
   Matrix4Mul(matrix_a_, matrix_b_, result_);
   
-  float result_data[16] = {   3070,  -9182,   8349,   5427,
-                              -147,  -7336,   4013,  -4420,
-                              9172,  -8440,   -401,   9847,
-                             -6860,  13813, -10383,  -1887 };
+  float result_data[16] = {  3070,        -147,        9172,       -6860,
+                            -9182,       -7336,       -8440,       13813,
+                             8349,        4013,        -401,      -10383,
+                             5427,       -4420,        9847,       -1887 };
   
   return memcmp(result_, result_data, 16 * sizeof(float)) == 0;
 }
@@ -96,7 +102,29 @@
   float result_data[4] = { 1673, 3483, 6115, -900 };
   
   return memcmp(result_, result_data, 4 * sizeof(float)) == 0;
+}
+
+- (BOOL) testMatrix4Vector3ArrayMul {
+  Matrix4Vector3ArrayMul(4, matrix_a_, 13.0,  4 * sizeof(float), 
+                         matrix_b_, 4 * sizeof(float), result_);
   
+  float result_data[16] = { 2818,        -159,        9128,       -6744,
+                           -6851,       -7225,       -8033,       12740,
+                            1860,        3704,       -1534,       -7396,
+                            -117,       -4684,        8879,         665};
+  return memcmp(result_, result_data, 16 * sizeof(float)) == 0;
+}
+
+
+- (BOOL) testMatrix4Vector3ArrayMulUnit {
+  Matrix4Vector3ArrayMul(4, matrix_a_, 4 * sizeof(float), 
+                         matrix_b_, 4 * sizeof(float), result_);
+  
+  float result_data[16] = {   3574,        -123,        9260,       -7092,
+                             -6095,       -7189,       -7901,       12392,
+                              2616,        3740,       -1402,       -7744,
+                               639,       -4648,        9011,         317 };  
+  return memcmp(result_, result_data, 16 * sizeof(float)) == 0;
 }
 
 @end

@@ -37,7 +37,7 @@ void Matrix4Mul(const float* src_mat_1, const float* src_mat_2, float* dst_mat) 
                 // Let A:=src_ptr_1, B:=src_ptr_2, then
                 // function computes A*B as (B^T * A^T)^T.
                 
-                // Load the whole matrix into memory - transposed -> second operand first.
+                // Load the whole matrix into memory.
                 "fldmias  %2, {s8-s23}    \n\t"
                 // Load first column to scalar bank.
                 "fldmias  %1!, {s0-s3}    \n\t"
@@ -70,7 +70,7 @@ void Matrix4Mul(const float* src_mat_1, const float* src_mat_2, float* dst_mat) 
                 "fmacs s24, s12, s1       \n\t"
 		
                 // Load fourth column to scalar bank.
-                "fldmias %1!,  {s4-s7}    \n\t"
+                "fldmias %1,  {s4-s7}    \n\t"
 
                 "fmacs s24, s16, s2       \n\t"
                 "fmacs s24, s20, s3       \n\t"
@@ -87,42 +87,46 @@ void Matrix4Mul(const float* src_mat_1, const float* src_mat_2, float* dst_mat) 
                 
                 VFP_VECTOR_LENGTH_ZERO
                 VFP_SWITCH_TO_THUMB
-                : "=r" (dst_mat), "=r" (src_mat_1)
-                : "r" (src_mat_2), "0" (dst_mat), "1" (src_mat_1)
-                : "r0"
+                : "=r" (dst_mat), "=r" (src_mat_2)
+                : "r" (src_mat_1), "0" (dst_mat), "1" (src_mat_2)
+                : "r0", "cc"
                 );
 }
 
+// Load the matrix transposed into memory.
+// Any idea how to make this faster ?
+// Calculating explictly is not really an option.
+
+#define VFP_LOAD_MATRIX0_T_TO_S8_S23 "fldmias  %0!, {s8-s11}    \n\t" \
+                                     "fcpys s12, s9             \n\t" \
+                                     "fcpys s16, s10            \n\t" \
+                                     "fldmias  %0!, {s24-s27}   \n\t" \
+                                     "fcpys s20, s11            \n\t" \
+                                     "fcpys s9,  s24            \n\t" \
+                                     "fcpys s13, s25            \n\t" \
+                                     "fldmias  %0!, {s28-s31}   \n\t" \
+                                     "fcpys s17, s26            \n\t" \
+                                     "fcpys s21, s27            \n\t" \
+                                                                      \
+                                     "fcpys s10,  s28           \n\t" \
+                                     "fcpys s14, s29            \n\t" \
+                                     "fldmias  %0!, {s24-s27}   \n\t" \
+                                     "fcpys s18, s30            \n\t" \
+                                     "fcpys s22, s31            \n\t" \
+                                                                      \
+                                     "fcpys s11, s24            \n\t" \
+                                     "fcpys s15, s25            \n\t" \
+                                                                      \
+                                     "fcpys s19, s26            \n\t" \
+                                     "fcpys s23, s27            \n\t" 
+
 void Matrix4Vector4Mul(const float* src_mat, const float* src_vec, float* dst_vec) {
   asm volatile (VFP_SWITCH_TO_ARM
-                // Load the matrix transposed into memory.
-                // Any idea how to make this faster ?
-                // Calculating explictly is not really an option.
-                "fldmias  %0!, {s8-s11}    \n\t"
-                "fcpys s12, s9             \n\t"
-                "fcpys s16, s10            \n\t"
-                "fldmias  %0!, {s24-s27}   \n\t"
-                "fcpys s20, s11            \n\t"
-                "fcpys s9,  s24            \n\t"
-                "fcpys s13, s25            \n\t"
-                "fldmias  %0!, {s28-s31}   \n\t"
-                "fcpys s17, s26            \n\t"
-                "fcpys s21, s27            \n\t"
                 
-                "fcpys s10,  s28           \n\t"
-                "fcpys s14, s29            \n\t"
-                "fldmias  %0!, {s24-s27}   \n\t"
-                "fcpys s18, s30            \n\t"
-                "fcpys s22, s31            \n\t"
-                
-                "fcpys s11, s24            \n\t"
-                "fcpys s15, s25            \n\t"
-                
+                // Load the whole matrix.
+                "fldmias  %0, {s8-s23}     \n\t"                
                 // Load vector to scalar bank.
                 "fldmias  %1, {s0-s3}      \n\t"
-                
-                "fcpys s19, s26            \n\t"
-                "fcpys s23, s27            \n\t"
                 
                 VFP_VECTOR_LENGTH(3)
                 
@@ -137,43 +141,20 @@ void Matrix4Vector4Mul(const float* src_mat, const float* src_vec, float* dst_ve
                 
                 VFP_VECTOR_LENGTH_ZERO
                 VFP_SWITCH_TO_THUMB
-                : "=r" (src_mat)
-                : "r" (src_vec), "r" (dst_vec), "0" (src_mat)
-                : "r0"
+                : 
+                : "r" (src_mat), "r" (src_vec), "r" (dst_vec)
+                : "r0", "cc"
                 );  
 }
   
 void Matrix4Vector3Mul(const float* src_mat, const float* src_vec, float* dst_vec) {  
   asm volatile (VFP_SWITCH_TO_ARM
-                // Load the matrix transposed into memory.
-                // Any idea how to make this faster ?
-                // Calculating explictly is not really an option.
-                "fldmias  %0!, {s8-s11}    \n\t"
-                "fcpys s12, s9             \n\t"
-                "fcpys s16, s10            \n\t"
-                "fldmias  %0!, {s24-s27}   \n\t"
-                "fcpys s20, s11            \n\t"
-                "fcpys s9,  s24            \n\t"
-                "fcpys s13, s25            \n\t"
-                "fldmias  %0!, {s28-s31}   \n\t"
-                "fcpys s17, s26            \n\t"
-                "fcpys s21, s27            \n\t"
-                
-                "fcpys s10,  s28           \n\t"
-                "fcpys s14, s29            \n\t"
-                "fldmias  %0!, {s24-s27}   \n\t"
-                "fcpys s18, s30            \n\t"
-                "fcpys s22, s31            \n\t"
-                
-                "fcpys s11, s24            \n\t"
-                "fcpys s15, s25            \n\t"
-                
+                // Load the whole matrix.
+                "fldmias  %0, {s8-s23}     \n\t"                
+
                 // Load vector to scalar bank.
                 "fldmias  %1, {s0-s2}    \n\t"
-                
-                "fcpys s19, s26            \n\t"
-                "fcpys s23, s27            \n\t"
-                
+
                 VFP_VECTOR_LENGTH(3)
                 
                 // First column times matrix.
@@ -187,42 +168,20 @@ void Matrix4Vector3Mul(const float* src_mat, const float* src_vec, float* dst_ve
                 
                 VFP_VECTOR_LENGTH_ZERO
                 VFP_SWITCH_TO_THUMB
-                : "=r" (src_mat)
-                : "r" (src_vec), "r" (dst_vec), "0" (src_mat)
-                : "r0"
+                : 
+                : "r" (src_mat), "r" (src_vec), "r" (dst_vec)
+                : "r0", "cc"
                 );  
 }
   
 void Matrix4Vector3Mul(const float* src_mat, const float* src_vec, float w, float* dst_vec) {  
     asm volatile (VFP_SWITCH_TO_ARM
-                  // Load the matrix transposed into memory.
-                  // Any idea how to make this faster ?
-                  // Calculating explictly is not really an option.
-                  "fldmias  %0!, {s8-s11}    \n\t"
-                  "fcpys s12, s9             \n\t"
-                  "fcpys s16, s10            \n\t"
-                  "fldmias  %0!, {s24-s27}   \n\t"
-                  "fcpys s20, s11            \n\t"
-                  "fcpys s9,  s24            \n\t"
-                  "fcpys s13, s25            \n\t"
-                  "fldmias  %0!, {s28-s31}   \n\t"
-                  "fcpys s17, s26            \n\t"
-                  "fcpys s21, s27            \n\t"
-                  
-                  "fcpys s10,  s28           \n\t"
-                  "fcpys s14, s29            \n\t"
-                  "fldmias  %0!, {s24-s27}   \n\t"
-                  "fcpys s18, s30            \n\t"
-                  "fcpys s22, s31            \n\t"
-                  
-                  "fcpys s11, s24            \n\t"
-                  "fcpys s15, s25            \n\t"
-                  
+                 
+                  // Load the whole matrix.
+                  "fldmias  %0, {s8-s23}     \n\t"                
+
                   // Load vector to scalar bank.
                   "fldmias  %1, {s0-s2}    \n\t"
-                  
-                  "fcpys s19, s26            \n\t"
-                  "fcpys s23, s27            \n\t"
                   
                   // Load w.
                   "fmsr   s3, %3             \n\t"
@@ -240,11 +199,85 @@ void Matrix4Vector3Mul(const float* src_mat, const float* src_vec, float w, floa
                   
                   VFP_VECTOR_LENGTH_ZERO
                   VFP_SWITCH_TO_THUMB
-                  : "=r" (src_mat)
-                  : "r" (src_vec), "r" (dst_vec), "r" (w), "0" (src_mat)
-                  : "r0"
+                  :
+                  : "r" (src_mat), "r" (src_vec), "r" (dst_vec), "r" (w)
+                  : "r0", "cc"
                   );  
 }
+
+void Matrix4Vector3ArrayMul(int num, const float* src_mat, int src_stride,
+                            const float* src_vec_array, int dst_stride,
+                            float* dst_vec_array) {
+  asm volatile (VFP_SWITCH_TO_ARM
+                // Load the whole matrix.
+                "fldmias  %2, {s8-s23}     \n\t"                
+                
+                VFP_VECTOR_LENGTH(3)
+                "L2000:                    \n\t"
+                // Load vector to scalar bank.
+                "fldmias  %0, {s0-s2}      \n\t"
+                "adds %0, %0, %3           \n\t"
+                
+                // First column times matrix.
+                "fmuls s24, s8, s0         \n\t"
+                "fmacs s24, s12, s1        \n\t"
+                "fmacs s24, s16, s2        \n\t"
+                "fadds s24, s24, s20       \n\t"
+                
+                // Save vector.
+                "fstmias  %1, {s24-s27}   \n\t" 
+                "adds %1, %1, %4           \n\t"
+                
+                "subs %5, %5, #1           \n\t"
+                "bne L2000                 \n\t"
+                
+                VFP_VECTOR_LENGTH_ZERO
+                VFP_SWITCH_TO_THUMB
+                : "=r" (src_vec_array), "=r" (dst_vec_array)
+                : "r" (src_mat), "r" (src_stride), "r" (dst_stride), "r" (num),
+                  "0" (src_vec_array), "1" (dst_vec_array)
+                : "r0", "cc"
+                );    
+}
+
+void Matrix4Vector3ArrayMul(int num, const float* src_mat, float w, int src_stride,                   
+                            const float* src_vec_array, int dst_stride,                   
+                            float* dst_vec_array) {
+  asm volatile (VFP_SWITCH_TO_ARM
+                // Load the whole matrix.
+                "fldmias  %2, {s8-s23}     \n\t"                
+                
+                "fmsr s3, %6               \n\t"
+                
+                VFP_VECTOR_LENGTH(3)
+                "L2010:                    \n\t"
+                // Load vector to scalar bank.
+                "fldmias  %0, {s0-s2}      \n\t"
+                "adds %0, %0, %3           \n\t"
+                
+                // First column times matrix.
+                "fmuls s24, s8, s0         \n\t"
+                "fmacs s24, s12, s1        \n\t"
+                "fmacs s24, s16, s2        \n\t"
+                "fmacs s24, s20, s3        \n\t"
+                
+                // Save vector.
+                "fstmias  %1, {s24-s27}   \n\t" 
+                "adds %1, %1, %4           \n\t"
+                
+                "subs %5, %5, #1           \n\t"
+                "bne L2010                 \n\t"
+                
+                VFP_VECTOR_LENGTH_ZERO
+                VFP_SWITCH_TO_THUMB
+                : "=r" (src_vec_array), "=r" (dst_vec_array)
+                : "r" (src_mat), "r" (src_stride), "r" (dst_stride), "r" (num), "r" (w),
+                  "0" (src_vec_array), "1" (dst_vec_array)
+                : "r0", "cc"
+                );      
+  
+}
+
   
 #endif
 #endif
