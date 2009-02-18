@@ -37,5 +37,8 @@
 - (BOOL)testMatrix4Mul;
 - (BOOL)testMatrix4Vector4Mul;
 - (BOOL)testMatrix4Vector3Mul;
+- (BOOL)testMatrix4Vector3MulUnit;
+- (BOOL)testMatrix4Vector3ArrayMul;
+- (BOOL)testMatrix4Vector3ArrayMulUnit;
 
 @end
