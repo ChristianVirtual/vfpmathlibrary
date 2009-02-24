@@ -40,5 +40,6 @@
 - (BOOL)testMatrix4Vector3MulUnit;
 - (BOOL)testMatrix4Vector3ArrayMul;
 - (BOOL)testMatrix4Vector3ArrayMulUnit;
+- (BOOL)testMatrix4Invert;
 
 @end

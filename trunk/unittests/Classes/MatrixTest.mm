@@ -44,6 +44,9 @@
     [self registerTest:@selector(testMatrix4Vector3ArrayMulUnit) 
        showDescription:@"Matrix4Vector3ArrayMul Unit"];
     
+    [self registerTest:@selector(testMatrix4Invert)
+       showDescription:@"Matrix4Invert"];
+    
     // Setup test matrices.
     float matrix_a_data[16] = {  -45,   -91,   -81,    64,
                                   38,   -37,    90,   -94,
@@ -125,6 +128,29 @@
                               2616,        3740,       -1402,       -7744,
                                639,       -4648,        9011,         317 };  
   return memcmp(result_, result_data, 16 * sizeof(float)) == 0;
+}
+
+- (BOOL) testMatrix4Invert {
+  Matrix4Invert(matrix_a_, result_);
+  
+  float result_data[16] = { 1.1089385e-03, -3.2081879e-03,  3.1474421e-03, -1.9249683e-02,
+                           -8.1720734e-03, -5.9248884e-03, -1.8780583e-03,  2.6509888e-03,
+                           -3.6345657e-03,  3.4951195e-03,  8.0113579e-03,  3.0511483e-03,
+                            1.8505794e-04, -6.2566968e-03,  9.6820556e-03, -5.9039490e-03 };
+    
+  /*
+  for (int i = 0; i < 16; ++i) {
+    NSString* elem = [NSString stringWithFormat:@" %f ", result_[i]];
+    output_.text = [output_.text stringByAppendingString:elem];
+  }
+  */
+  
+  BOOL ret_val = YES;
+  for (int i = 0; i < 16; ++i)
+    if (fabs(result_data[i] - result_[i]) / fabs(result_data[i]) > 1e-6)
+      ret_val = NO;
+  
+  return ret_val;
 }
 
 @end

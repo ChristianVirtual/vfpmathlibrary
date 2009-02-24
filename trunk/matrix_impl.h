@@ -62,4 +62,10 @@ void Matrix4Vector3ArrayMul(int num,                          // Number of Verti
                             int dst_stride,                   // Dest. vector stride in bytes.
                             float* dest_vec_array);           // Dest. vector array.
 
+// Inverts a 4x4 Matrix with 94 multiplications and one division.
+// This is not the fastest possible implementation (60 mult + 2 divisions) but it is
+// not dependent on the determinants of submatrices.
+// Furthermore on iPhone, division has IPC of 15 vs. 1 IPC for multiplication.
+void Matrix4Invert(const float* src_mat, float* dst_mat);
+
 #endif // MATRIX_IMPL_H__
