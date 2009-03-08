@@ -34,6 +34,7 @@
 		B21584050F423077003CCBEF /* matrix_impl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = matrix_impl.h; path = ../matrix_impl.h; sourceTree = SOURCE_ROOT; };
 		B21584DD0F43364D003CCBEF /* UnittestsAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnittestsAppDelegate.h; sourceTree = "<group>"; };
 		B21584DE0F43364D003CCBEF /* UnittestsAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnittestsAppDelegate.m; sourceTree = "<group>"; };
+		B2960E3C0F646E23004FB74B /* vfp_clobbers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vfp_clobbers.h; path = ../vfp_clobbers.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +115,7 @@
 		B212B3D80F422FFE00FE2A61 /* vfpmathlibrary */ = {
 			isa = PBXGroup;
 			children = (
+				B2960E3C0F646E23004FB74B /* vfp_clobbers.h */,
 				B21584050F423077003CCBEF /* matrix_impl.h */,
 				B212B3D90F42301A00FE2A61 /* common_macros.h */,
 				B212B3DA0F42301A00FE2A61 /* matrix_impl.cpp */,
@@ -216,6 +218,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_THUMB_SUPPORT = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;

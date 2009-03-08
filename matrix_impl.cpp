@@ -28,6 +28,7 @@ not be misrepresented as being the original software.
 
 #include "matrix_impl.h"
 #include "common_macros.h"
+#include "vfp_clobbers.h"
 
 void Matrix4Mul(const float* src_mat_1, const float* src_mat_2, float* dst_mat) {
   asm volatile (VFP_SWITCH_TO_ARM
@@ -89,7 +90,7 @@ void Matrix4Mul(const float* src_mat_1, const float* src_mat_2, float* dst_mat) 
                 VFP_SWITCH_TO_THUMB
                 : "=r" (dst_mat), "=r" (src_mat_2)
                 : "r" (src_mat_1), "0" (dst_mat), "1" (src_mat_2)
-                : "r0", "cc"
+                : "r0", "cc", "memory", VFP_CLOBBER_S0_S31
                 );
 }
 
@@ -173,7 +174,7 @@ void Matrix4Vector4Mul(const float* src_mat, const float* src_vec, float* dst_ve
                 VFP_SWITCH_TO_THUMB
                 : 
                 : "r" (src_mat), "r" (src_vec), "r" (dst_vec)
-                : "r0", "cc"
+                : "r0", "cc", "memory", VFP_CLOBBER_S0_S3, VFP_CLOBBER_S8_S27 
                 );  
 }
   
@@ -200,7 +201,7 @@ void Matrix4Vector3Mul(const float* src_mat, const float* src_vec, float* dst_ve
                 VFP_SWITCH_TO_THUMB
                 : 
                 : "r" (src_mat), "r" (src_vec), "r" (dst_vec)
-                : "r0", "cc"
+                : "r0", "cc", "memory", VFP_CLOBBER_S0_S2, VFP_CLOBBER_S8_S27 
                 );  
 }
   
@@ -231,7 +232,7 @@ void Matrix4Vector3Mul(const float* src_mat, const float* src_vec, float w, floa
                   VFP_SWITCH_TO_THUMB
                   :
                   : "r" (src_mat), "r" (src_vec), "r" (dst_vec), "r" (w)
-                  : "r0", "cc"
+                  : "r0", "cc", "memory", VFP_CLOBBER_S0_S3, VFP_CLOBBER_S8_S27
                   );  
 }
 
@@ -266,7 +267,7 @@ void Matrix4Vector3ArrayMul(int num, const float* src_mat, int src_stride,
                 : "=r" (src_vec_array), "=r" (dst_vec_array)
                 : "r" (src_mat), "r" (src_stride), "r" (dst_stride), "r" (num),
                   "0" (src_vec_array), "1" (dst_vec_array)
-                : "r0", "cc"
+                : "r0", "cc", "memory", VFP_CLOBBER_S0_S2, VFP_CLOBBER_S8_S27 
                 );    
 }
 
@@ -303,7 +304,7 @@ void Matrix4Vector3ArrayMul(int num, const float* src_mat, float w, int src_stri
                 : "=r" (src_vec_array), "=r" (dst_vec_array)
                 : "r" (src_mat), "r" (src_stride), "r" (dst_stride), "r" (num), "r" (w),
                   "0" (src_vec_array), "1" (dst_vec_array)
-                : "r0", "cc"
+                : "r0", "cc", "memory",  VFP_CLOBBER_S0_S3, VFP_CLOBBER_S8_S27 
                 );      
   
 }
@@ -446,9 +447,6 @@ void Matrix4Invert(const float* src_mat, float* dst_mat) {
                 "fmacs  s11, s5, s28       \n\t"
                 "fnmacs s11, s6, s29       \n\t"
                 
-                // TODO: remove.
-                //"fstmias %1, {s8-s23}      \n\t"
-                
                 // Multiply with inverse of determinant.
                 "fmsr s1, %2               \n\t"
                 "fdivs s0, s1, s31         \n\t"
@@ -466,7 +464,7 @@ void Matrix4Invert(const float* src_mat, float* dst_mat) {
                 VFP_SWITCH_TO_THUMB
                 : "=r" (src_mat), "=r" (dst_mat)
                 : "r" (one), "0" (src_mat), "1" (dst_mat)
-                : "r0", "cc"
+                : "r0", "cc", "memory", VFP_CLOBBER_S0_S31
                 );      
   
 }
