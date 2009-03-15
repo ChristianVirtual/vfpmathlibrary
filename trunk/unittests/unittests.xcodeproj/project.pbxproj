@@ -11,6 +11,7 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
+		822C44BE0F6DBD96004EE1D0 /* vsinf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 822C44BD0F6DBD96004EE1D0 /* vsinf.cpp */; };
 		B212B2C40F420F5A00FE2A61 /* TestSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = B212B2C30F420F5A00FE2A61 /* TestSuite.m */; };
 		B212B2D60F421D4200FE2A61 /* MatrixTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = B212B2D50F421D4200FE2A61 /* MatrixTest.mm */; };
 		B212B3DB0F42301A00FE2A61 /* matrix_impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B212B3DA0F42301A00FE2A61 /* matrix_impl.cpp */; };
@@ -24,6 +25,8 @@
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Unittests_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Unittests_Prefix.pch; sourceTree = "<group>"; };
+		822C44BC0F6DBD96004EE1D0 /* vsinf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vsinf.h; sourceTree = "<group>"; };
+		822C44BD0F6DBD96004EE1D0 /* vsinf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vsinf.cpp; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B212B2C20F420F5A00FE2A61 /* TestSuite.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = TestSuite.h; sourceTree = "<group>"; };
 		B212B2C30F420F5A00FE2A61 /* TestSuite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSuite.m; sourceTree = "<group>"; };
@@ -119,6 +122,8 @@
 				B21584050F423077003CCBEF /* matrix_impl.h */,
 				B212B3D90F42301A00FE2A61 /* common_macros.h */,
 				B212B3DA0F42301A00FE2A61 /* matrix_impl.cpp */,
+				822C44BC0F6DBD96004EE1D0 /* vsinf.h */,
+				822C44BD0F6DBD96004EE1D0 /* vsinf.cpp */,
 			);
 			name = vfpmathlibrary;
 			sourceTree = "<group>";
@@ -180,6 +185,7 @@
 				B212B2D60F421D4200FE2A61 /* MatrixTest.mm in Sources */,
 				B212B3DB0F42301A00FE2A61 /* matrix_impl.cpp in Sources */,
 				B21584DF0F43364D003CCBEF /* UnittestsAppDelegate.m in Sources */,
+				822C44BE0F6DBD96004EE1D0 /* vsinf.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
