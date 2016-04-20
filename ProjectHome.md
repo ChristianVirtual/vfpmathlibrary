@@ -1,0 +1,2 @@
+VFPmathLibrary is optimized to use the VFP extension available on the ARM processor of the iPhone / iPod touch.
+It provides low-cost single-precision and double-precision floating-point computation fully compliant with the ANSI/IEEE Std 754-1985 Standard for Binary Floating-Point Arithmetic. The VFP architecture also supports execution of short vector instructions allowing SIMD (Single Instruction Multiple Data) parallelism.
